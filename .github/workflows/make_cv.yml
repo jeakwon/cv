@@ -8,8 +8,14 @@ jobs:
       contents: write  # 깃허브 로봇에게 파일 쓰기 권한 부여 (중요!)
       
     steps:
-      - name: 내 코드 가져오기
+      - name: Checkout
         uses: actions/checkout@v3
+
+      # [핵심] 홈페이지 리포지토리에서 최신 Bib 파일 가져오기 (Raw 주소 이용)
+      - name: Fetch BibTeX from Homepage
+        run: |
+          wget https://raw.githubusercontent.com/jeakwon/jeakwon.github.io/main/gith/papers.bib -O papers.bib
+          # 설명: 저쪽(Homepage)에 있는 papers.bib를 가져와서 내 방(CV Repo)에 papers.bib란 이름으로 저장해라.
 
       - name: LaTeX 컴파일 (PDF 만들기)
         uses: xu-cheng/latex-action@v2
