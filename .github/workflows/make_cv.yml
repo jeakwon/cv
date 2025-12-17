@@ -14,7 +14,7 @@ jobs:
       # [핵심] 홈페이지 리포지토리에서 최신 Bib 파일 가져오기 (Raw 주소 이용)
       - name: Fetch BibTeX from Homepage
         run: |
-          wget https://raw.githubusercontent.com/jeakwon/jeakwon.github.io/main/gith/papers.bib -O papers.bib
+          wget https://raw.githubusercontent.com/jeakwon/homepage-v2/main/gith/papers.bib -O papers.bib
           # 설명: 저쪽(Homepage)에 있는 papers.bib를 가져와서 내 방(CV Repo)에 papers.bib란 이름으로 저장해라.
 
       - name: LaTeX 컴파일 (PDF 만들기)
