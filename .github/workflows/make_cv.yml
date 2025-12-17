@@ -1,0 +1,28 @@
+name: Auto Generate CV PDF
+on: [push]  # 아무 파일이나 수정해서 올리면(Push) 작동
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 깃허브 로봇에게 파일 쓰기 권한 부여 (중요!)
+      
+    steps:
+      - name: 내 코드 가져오기
+        uses: actions/checkout@v3
+
+      - name: LaTeX 컴파일 (PDF 만들기)
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: cv.tex
+          # bibtex를 포함해서 컴파일
+          latexmk_use_xelatex: true 
+
+      - name: 생성된 PDF를 저장소에 업로드 (Commit & Push)
+        run: |
+          git config --global user.name "GitHub Action Bot"
+          git config --global user.email "action@github.com"
+          git add cv.pdf
+          # 변경사항이 있을 때만 커밋 (에러 방지)
+          git commit -m "Auto-generated CV PDF update" || echo "No changes to commit"
+          git push
